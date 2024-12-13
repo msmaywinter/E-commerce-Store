@@ -15,15 +15,14 @@
     <body>
         <br>
         <div class="container bg-white shadow-md p-5 form-layout">
-            <h3>Login to your account</h3>
+            <h3><i class="fa-solid fa-trash fa-x2"></i>&nbsp; Delete your account</h3>
             <br>
             <form method="POST" autocomplete="off">
                 {% csrf_token %}
-                {{form.username|as_crispy_field}}
-                <br>
-                {{form.password|as_crispy_field}}
+                <p>Are you sure that you want to delete your account?</p>
+                <button type="submit" class="btn btn-danger navbar-btn text-white">&nbsp; Delete your account</button>
                 <br> <br>
-                <button type="submit" class="btn btn-secondary btn-lg w-100 btn-block p-2">&nbsp; Login</button>
+                <a class="btn btn-primary navbar-btn text-white" type="button" href="{% url 'dashboard' %}">Cancel &nbsp;<i class="fa-solid fa-rotate-left"></i></a>
             </form>
         </div>
         <br> <br>

@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.forms.widgets import TextInput, PasswordInput
 
 
+# Registration form
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -35,3 +37,30 @@ class CreateUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+
+# Login form
+
+class LoginForm(AuthenticationForm):
+
+    username = forms.CharField(widget=TextInput())
+    password = forms.CharField(widget=PasswordInput())
+
+
+# Update form
+
+class UpdateUserForm(forms.ModelForm):
+
+    password = None
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateUserForm, self).__init__(*args, **kwargs)
+        # Mark fields as required
+        self.fields['username'].required = True
+        self.fields['email'].required = True
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        exclude = ['password1', 'password2']
+

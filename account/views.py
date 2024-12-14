@@ -8,6 +8,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def register(request):
@@ -123,7 +124,23 @@ def my_login(request):
 
 def user_logout(request):
 
-    auth.logout(request)
+    try:
+
+        for key in list(request.session.keys()):
+
+            if key == 'session_key':
+
+                continue
+
+            else:
+
+                del request.session[key]
+
+    except KeyError:
+
+        pass
+
+    messages.success(request, 'Logout success!')
 
     return redirect('store')
 
@@ -137,6 +154,8 @@ def dashboard(request):
 @login_required(login_url='my-login')
 def profile_management(request):
 
+    user_form = UpdateUserForm(instance=request.user)
+
     if request.method == 'POST':
 
         user_form = UpdateUserForm(request.POST, instance=request.user)
@@ -145,11 +164,9 @@ def profile_management(request):
 
             user_form.save()
 
+            messages.info(request, 'Account updated')
+
             return redirect('dashboard')
-
-    else:
-
-        user_form = UpdateUserForm(instance=request.user)
 
     context = {'user_form': user_form}
 
@@ -160,12 +177,14 @@ def profile_management(request):
 @login_required(login_url='my-login')
 def delete_account(request):
 
-        user = User.objects.get(id=request.user.id)
+    user = User.objects.get(id=request.user.id)
 
-        if request.method == 'POST':
+    if request.method == 'POST':
 
-            user.delete()
+        user.delete()
 
-            return redirect('store')
+        messages.error(request, 'Account deleted')
 
-        return render(request, 'account/delete-account.html')
+        return redirect('store')
+
+    return render(request, 'account/delete-account.html')

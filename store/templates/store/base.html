@@ -121,14 +121,14 @@
 
                     <li class="nav-item">
                     
-                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'dashboard' %}"> Dashboard </a>
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'dashboard' %}"><i class="fa fa-house" area-hidden="true"></i>&nbsp;  Dashboard </a>
 
                     </li>
 
 
                     <li class="nav-item">
-
-                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'user-logout' %}"> Logout </a>
+                        
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'user-logout' %}"><i class="fa fa-sign-out" area-hidden="true"></i>&nbsp; Logout </a>
 
                     </li>
 
@@ -136,14 +136,14 @@
 
                     <li class="nav-item">
                 
-                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'register' %}"> Register </a>
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'register' %}"><i class="fa fa-address-card" area-hidden="true"></i>&nbsp; Register </a>
 
                     </li>
 
 
                     <li class="nav-item">
 
-                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'my-login' %}"> Login </a>
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'my-login' %}"><i class="fa fa-right-to-bracket" area-hidden="true"></i>&nbsp;  Login </a>
 
                     </li>
 
@@ -196,6 +196,27 @@
 
     </nav>
 
+    {% for message in messages %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+            <h6 id="message-timer" class="alert alert-success text-center"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; {{ message }}</h6>
+
+        {% endif %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+            <h6 id="message-timer" class="alert alert-danger text-center"><i class="fa-solid fa-trash"></i>&nbsp; {{ message }}</h6>
+
+        {% endif %}
+        
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+
+            <h6 id="message-timer" class="alert alert-info text-center"><i class="fa-regular fa-pen-to-square"></i>&nbsp; {{ message }}</h6>
+
+        {% endif %}
+
+    {% endfor %}
 
     <body>
 
@@ -216,5 +237,6 @@
 
     </body>
 
+    <script src="{% static 'js/app.js' %}"></script>
 
 </html>

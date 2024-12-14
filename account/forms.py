@@ -53,14 +53,29 @@ class UpdateUserForm(forms.ModelForm):
 
     password = None
 
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        exclude = ['password1', 'password2']
+
+
     def __init__(self, *args, **kwargs):
         super(UpdateUserForm, self).__init__(*args, **kwargs)
         # Mark fields as required
         self.fields['username'].required = True
         self.fields['email'].required = True
 
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-        exclude = ['password1', 'password2']
+    
+    # Email validation
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
 
+        # Check if email already exists
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('This email already exists.')
+
+        # Validate email length
+        if len(email) >= 350:
+            raise forms.ValidationError('Your email is too long.')
+        
+        return email

@@ -1,0 +1,43 @@
+{% include 'store/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    body{
+        background-color: grey;
+    }
+</style>
+
+<body>
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <div class="text-center">
+
+            <i class="fa-solid fa-circle-exclamation fa-4x"></i>
+
+            <br> <br>
+
+            <h5><strong>Payment Failed</strong></h5>
+
+        <hr>
+    
+        <p>Something went wrong with your payment.</p>
+        <p>Please try again or contact support for assistance.</p>
+
+        <a class="btn btn-primary navbar-btn text-white" type="button" href="{% url 'dashboard' %}">Go to my dashboard</a>
+        <br> <br>
+        <a class="btn btn-primary navbar-btn text-white" type="button" href="{% url 'store' %}">Go to home page</a>
+
+        </div>
+    
+    </div>
+
+</body>
+
+
+{% endblock %}

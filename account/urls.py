@@ -39,4 +39,8 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='account/password/password-reset-form.html'), name='password_reset_confirm'),
 
     path('reset_password_complete', auth_views.PasswordResetCompleteView.as_view(template_name='account/password/password-reset-complete.html'), name='password_reset_complete'),
+
+    # Shipping urls
+
+    path('manage-shipping', views.manage_shipping, name='manage-shipping'),
 ]

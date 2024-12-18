@@ -30,6 +30,9 @@ urlpatterns = [
 
     path('delete-account', views.delete_account, name='delete-account'),
 
+    path('track-orders', views.track_orders, name='track-orders'),
+
+
    # Password management urls / views
    
     path('reset_password', auth_views.PasswordResetView.as_view(template_name='account/password/password-reset.html'), name='reset_password'),

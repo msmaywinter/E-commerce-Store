@@ -68,7 +68,7 @@ def complete_order(request):
 
         if request.user.is_authenticated:
 
-            order = Order.objects.create(full_name=name, email=email, shipping_adress=shipping_address, amount_paid=total_cost, user=request.user)
+            order = Order.objects.create(full_name=name, email=email, shipping_address=shipping_address, amount_paid=total_cost, user=request.user)
 
             order_id = order.pk
 
@@ -78,7 +78,7 @@ def complete_order(request):
 
         else:
 
-            order = Order.objects.create(full_name=name, email=email, shipping_adress=shipping_adress, amount_paid=total_cost)
+            order = Order.objects.create(full_name=name, email=email, shipping_address=shipping_address, amount_paid=total_cost)
 
             order_id = order.pk
 

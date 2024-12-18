@@ -1,0 +1,79 @@
+{% include 'store/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    body{
+        background-color: grey;
+    }
+    li{
+        list-style: none;
+    }
+</style>
+
+<body>
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+            <h3><i class="fa-solid fa-rectangle-list"></i>&nbsp; My orders</h3>
+
+            <hr>
+
+    </div>
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        {% if orders|length == 0 %}
+
+            <h3>No orders found</h3>
+            <hr>
+            <br>
+
+            <p>Looks like you haven't purchased anything yet.</p>
+            <p>Start shopping now and find something you'll love!</p>
+
+            
+
+            <a href="{% url 'store' %}" class="btn btn-primary my-2">
+
+                <i class="fa fa-cart-shopping" aria-hidden="true"></i> &nbsp; Shop now
+
+            </a>
+
+
+        {% else %}
+
+            {% for order in orders %}
+
+                <strong> Order ID #{{ order.id }}</strong>
+                
+                <br> <br>
+
+                {{ order.product }}
+
+                <br> <br>
+
+                Quantity x {{ order.quantity }}
+
+                <br> <br>
+
+                $ {{ order.price }}
+
+                <br> <br>
+
+                <hr>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+{% endblock %}
